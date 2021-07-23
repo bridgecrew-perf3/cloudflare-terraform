@@ -5,8 +5,6 @@
 - [cf-terraforming => 0.3.0](https://github.com/cloudflare/cf-terraforming)
 - [Terraform => 0.14.9](https://www.terraform.io/downloads.html)
 
-Tested on OSX and Linux.
-
 ## Setup
 
 1. Create file **.cf-terraforming.yaml** with Cloudflare e-mail and API key (used by cf-terraforming)
