@@ -1,20 +1,41 @@
-# Terraforming existing Cloudflare infrastructure
+# Terraform existing Cloudflare infrastructure
 
 ## Requirements
 
 - [cf-terraforming => 0.3.0](https://github.com/cloudflare/cf-terraforming)
 - [Terraform => 0.14.9](https://www.terraform.io/downloads.html)
 
+Tested on OSX and Linux.
+
 ## Setup
 
-1. Create file **.cf-terraforming.yaml** with Cloudflare e-mail and API key
+1. Create file **.cf-terraforming.yaml** with Cloudflare e-mail and API key (used by cf-terraforming)
 
 ```
 email: "your-cloudflare@registered.email"
-key: "your Cloudflare Global API key"
+key: "your Cloudflare API key"
 ```
 
-2. Import existing Cloudflare infrastructure
+2. Create file **main.tf** with Cloudflare e-mail and API key (used by Terraform)
+
+```
+terraform {
+  required_providers {
+    cloudflare = {
+      source = "cloudflare/cloudflare"
+      version = "~> 2.0"
+    }
+  }
+}
+
+provider "cloudflare" { 
+  email   = "your-cloudflare@registered.email"
+  api_key = "your Cloudflare API key"
+}
+
+```
+
+3. Import existing Cloudflare infrastructure
 
 ```
 terraform init
