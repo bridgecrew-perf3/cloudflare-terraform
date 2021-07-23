@@ -86,4 +86,4 @@ terraform plan
 terraform apply
 ```
 
-
+![Terraform Cloudflare](https://raw.githubusercontent.com/fabriziosalmi/cloudflare-terraform/main/cloudflare-terraform.png)
