@@ -59,3 +59,31 @@ cf-terraforming -c .cf-terraforming.yaml import --resource-type "cloudflare_page
 terraform plan
 terraform apply
 ```
+
+4. (OPTIONAL) Migrate to Terraform cloud
+
+- create file **remote.tf** and execute Terraform remotely
+
+```
+terraform {
+  backend "remote" {
+    organization = "Your_Terraform_Cloud_Organization"
+
+    workspaces {
+      name = "Your_Terraform_Cloud_Workspace"
+    }
+  }
+}
+```
+
+```
+terraform login
+terraform init
+# you will be asked to migrate existing .terraform/terraform.tfstate file, answer yes
+# remove local terraform.tfstate
+rm .terraform/terraform.tfstate
+terraform plan
+terraform apply
+```
+
+
