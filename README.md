@@ -14,7 +14,7 @@ email: "your-cloudflare@registered.email"
 key: "your Cloudflare Global API key"
 ```
 
-2. Import stuff
+2. Import existing Cloudflare infrastructure
 
 ```
 terraform init
@@ -36,4 +36,7 @@ for i in $(cat zones.txt | xargs); do cf-terraforming -c .cf-terraforming.yaml i
 
 # extract page rules for a specific zone (by ID) and safe to cloudflare_page_rule.tf file
 cf-terraforming -c .cf-terraforming.yaml import --resource-type "cloudflare_page_rule" -z "$CLOUDFLARE_ZONE_ID" >> cloudflare_page_rule.tf
+
+terraform plan
+terraform apply
 ```
