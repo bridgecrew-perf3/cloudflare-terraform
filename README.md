@@ -2,6 +2,8 @@
 
 ## Requirements
 
+- A Cloudflare account with resources defined (e.g. a few zones, some load balancers, spectrum applications, etc)
+- A valid Cloudflare API key and sufficient permissions to access the resources you are requesting via the API
 - [cf-terraforming => 0.3.0](https://github.com/cloudflare/cf-terraforming)
 - [Terraform => 0.14.9](https://www.terraform.io/downloads.html)
 
