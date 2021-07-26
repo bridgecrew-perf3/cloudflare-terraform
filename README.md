@@ -41,22 +41,26 @@ provider "cloudflare" {
 terraform init
 
 # this will create resource blocks, we automatically save to cloudflare_zone.tf file
-cf-terraforming -c .cf-terraforming.yaml generate --resource-type "cloudflare_zone" >> cloudflare_zones.tf
+cf-terraforming -c .cf-terraforming.yaml generate --resource-type "cloudflare_zone" >> cloudflare_zone.tf
+
+# warning!!
+# status = "active" 
+# this statement cause issues, just delete all rows from the cloudflare_zone.tf file
 
 # this will output terraform import commands to copy/paste and execute
 cf-terraforming -c .cf-terraforming.yaml import --resource-type "cloudflare_zone"
 
 # extract zones ids
-cat cloudflare_zones.tf  | grep resource | awk '{print $3}' | sed s/\"terraform_managed_resource_//g | sed s/\"//g >> zones.txt
+cat cloudflare_zone.tf  | grep resource | awk '{print $3}' | sed s/\"terraform_managed_resource_//g | sed s/\"//g >> zones.txt
 
 # extract zone records for all zones and save to cloudflare_record.tf file
-for i in $(cat zones.txt | xargs); do cf-terraforming -c .cf-terraforming.yaml generate --resource-type "cloudflare_record" -z "$i" >> cloudflare_records.tf; done
+for i in $(cat zones.txt | xargs); do cf-terraforming -c .cf-terraforming.yaml generate --resource-type "cloudflare_record" -z "$i" >> cloudflare_record.tf; done
 
 # this will output terraform import commands to copy/paste and execute
-for i in $(cat zones.txt | xargs); do cf-terraforming -c .cf-terraforming.yaml import --resource-type "cloudflare_records" -z "$i"; done
+for i in $(cat zones.txt | xargs); do cf-terraforming -c .cf-terraforming.yaml import --resource-type "cloudflare_record" -z "$i"; done
 
 # yet another example: extract page rules for a specific zone (by ID) and safe to cloudflare_page_rule.tf file
-cf-terraforming -c .cf-terraforming.yaml import --resource-type "cloudflare_page_rule" -z "$CLOUDFLARE_ZONE_ID" >> cloudflare_page_rules.tf
+cf-terraforming -c .cf-terraforming.yaml import --resource-type "cloudflare_page_rule" -z "$CLOUDFLARE_ZONE_ID" >> cloudflare_page_rule.tf
 
 terraform plan
 terraform apply
